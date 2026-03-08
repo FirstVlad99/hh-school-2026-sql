@@ -1,4 +1,4 @@
-SELECT v.vacancy_id          "ID Вакансии",
+EXPLAIN ANALYSE SELECT v.vacancy_id          "ID Вакансии",
        v.position_name    as Заголовок,
        count(response_id) as Количество
 FROM vacancy as v

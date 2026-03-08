@@ -1,4 +1,4 @@
-(SELECT 'Месяц с наибольшим количеством вакансий' as Заголовок,
+EXPLAIN ANALYSE (SELECT 'Месяц с наибольшим количеством вакансий' as Заголовок,
         EXTRACT(MONTH FROM created_at)            as Месяц,
         count(*)                                  as Количество
  FROM vacancy

@@ -50,8 +50,8 @@ CREATE TYPE response_status AS ENUM ('pending', 'submitted', 'reviewed', 'accept
 CREATE TABLE response
 (
     response_id integer generated always as identity primary key,
-    status      text      default 'submitted',
-    created_at  timestamp default now(),
+    status      response_status default 'submitted',
+    created_at  timestamp       default now(),
     vacancy_id  integer references vacancy (vacancy_id),
     resume_id   integer references resume (resume_id)
 );
@@ -74,4 +74,11 @@ CREATE TABLE resume_specializations
     resume_id         integer not null references resume (resume_id),
     specialization_id integer not null references specialization (specialization_id),
     PRIMARY KEY (resume_id, specialization_id)
+);
+
+CREATE TABLE vacancy_specializations
+(
+    vacancy_id         integer not null references vacancy (vacancy_id),
+    specialization_id integer not null references specialization (specialization_id),
+    PRIMARY KEY (vacancy_id, specialization_id)
 );

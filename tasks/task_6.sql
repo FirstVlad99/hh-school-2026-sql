@@ -1,6 +1,5 @@
--- используется в task_3 в JOIN
-CREATE INDEX idx_vacancy_region_id
-    ON vacancy (region_id);
+--CREATE INDEX idx_vacancy_region_id
+--    ON vacancy (region_id);
 
 -- по регионам нет смысла индекс делать, т.к. их всего 70
 

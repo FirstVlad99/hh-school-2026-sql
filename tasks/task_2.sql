@@ -57,7 +57,8 @@ WITH test_data(position_name,
                                      trunc(random() * (SELECT count(employer_id) FROM employer))::int as employer_id,
                                      (SELECT min(region_id) FROM region) +
                                      trunc(random() * (SELECT count(region_id) FROM region))::int     as region_id
-                              FROM generate_series(1, 10000))
+                              --заменить на 1000000 для теста idx_vacancy_region_id
+                              FROM generate_series(1, 1000000))
 INSERT
 INTO vacancy(position_name, compensation_from, compensation_to, created_at, employer_id, region_id)
 SELECT position_name,
@@ -82,7 +83,8 @@ WITH test_data(position_name,
                                      trunc(random() * (SELECT count(applicant_id) FROM applicant))::int as applicant_id,
                                      (SELECT min(region_id) FROM region) +
                                      trunc(random() * (SELECT count(region_id) FROM region))::int       as region_id
-                              FROM generate_series(1, 100000))
+                              --заменить на 10000000 для теста idx_vacancy_region_id
+                              FROM generate_series(1, 10000000))
 INSERT
 INTO resume(position_name, compensation_from, compensation_to, created_at, applicant_id, region_id)
 SELECT position_name,
@@ -96,7 +98,7 @@ FROM test_data;
 
 WITH preload AS (SELECT (enum_range(null::response_status))[
                             1 + trunc(random() * array_length(enum_range(null::response_status), 1))::int
-                            ]::text                                           AS status,
+                            ]                                                 AS status,
 
                         (SELECT min(vacancy_id) FROM vacancy) +
                         trunc(random() * (SELECT count(*) FROM vacancy))::int AS vacancy_id,
